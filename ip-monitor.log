@@ -1,0 +1,30 @@
+
+
+IP monitor started
+
+Helper:  https://api.ipify.org
+SMTP:    in-v3.mailjet.com
+Port:    587
+User:    7134ff6fb852eebe21139279fa7f28ff
+Sender:  bot@guattari.ru
+Send to: mitryz@yandex.ru
+Subject: IP change notification
+Delay:   60
+Notify:  100000
+
+[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1129)
+
+
+IP monitor started
+
+Helper:  https://api.ipify.org
+SMTP:    in-v3.mailjet.com
+Port:    465
+User:    7134ff6fb852eebe21139279fa7f28ff
+Sender:  bot@guattari.ru
+Send to: mitryz@yandex.ru
+Subject: IP change notification
+Delay:   60
+Notify:  100000
+
+Notification sent.

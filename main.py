@@ -8,113 +8,113 @@ from email.message import EmailMessage
 def parse_args(config_file):
   config = configparser.ConfigParser(
     defaults = { 'helper':  'https://api.ipify.org',
-                 'server':  'smtp.yandex.ru',
+                 'server':  'in-v3.mailjet.com',
                  'port':    '0',
                  'user':    'user',
                  'pass':    '',
                  'sender':  'user@yandex.ru',
                  'sendto':  'user@yandex.ru',
                  'subject': 'IP monitor',
-                 'delay':   '30',
-                 'notify':  '6000' })
+                 'delay':   '60',
+                 'notify':  '100000' })
 
   config.read(config_file)
   
   cfg = config['DEFAULT']
 
   parser = argparse.ArgumentParser(
-    prog = 'ip-monitor',
+    prog        = 'ip-monitor',
     description = 'Public IP address monitoring'
   )
 
   parser.add_argument(
     '--ip-helper',
-    type = str,
+    type    = str,
     metavar = 'URL',
     default = cfg.get('helper'),
-    help = 'public IP service provider',
-    dest = 'ip_helper'
+    help    = 'public IP service provider',
+    dest    = 'ip_helper'
   )
 
   parser.add_argument(
     '--server',
-    type = str,
+    type    = str,
     metavar = 'URL',
     default = cfg.get('server'),
-    help = 'SMTP server address',
-    dest = 'smtp_server'
+    help    = 'SMTP server address',
+    dest    = 'smtp_server'
   )
 
   parser.add_argument(
     '--port',
-    type = int,
+    type    = int,
     metavar = 'PORT',
     default = cfg.get('port'),
-    help = 'SMTP server port',
-    dest = 'smtp_port'
+    help    = 'SMTP server port',
+    dest    = 'smtp_port'
   )
 
   parser.add_argument(
     '--user',
-    type = str,
+    type    = str,
     metavar = 'NAME',
     default = cfg.get('user'),
-    help = 'SMTP username',
-    dest = 'smtp_user'
+    help    = 'SMTP username',
+    dest    = 'smtp_user'
   )
 
   parser.add_argument(
     '--pass',
-    type = str,
+    type    = str,
     metavar = '****',
     default = cfg.get('pass'),
-    help = 'SMTP password',
-    dest = 'smtp_pass'
+    help    = 'SMTP password',
+    dest    = 'smtp_pass'
   )
 
   parser.add_argument(
     '--sender',
-    type = str,
+    type    = str,
     metavar = 'EMAIL',
     default = cfg.get('sender'),
-    help = 'sender email address',
-    dest = 'sender'
+    help    = 'sender email address',
+    dest    = 'sender'
   )
 
   parser.add_argument(
     '--sendto',
-    type = str,
+    type    = str,
     metavar = 'EMAIL',
     default = cfg.get('sendto'),
-    help = 'where to send notifications',
-    dest = 'sendto'
+    help    = 'where to send notifications',
+    dest    = 'sendto'
   )
 
   parser.add_argument(
     '--subject',
-    type = str,
+    type    = str,
     metavar = 'TITLE',
     default = cfg.get('subject'),
-    help = 'notification email subject',
-    dest = 'subject'
+    help    = 'notification email subject',
+    dest    = 'subject'
   )
 
   parser.add_argument(
     '--delay',
-    type = int,
+    type    = int,
     metavar = 'TIME',
     default = cfg.get('delay'),
-    help = 'IP check delay in seconds',
-    dest = 'delay'
+    help    = 'IP check delay in seconds',
+    dest    = 'delay'
   )
 
   parser.add_argument(
     '--notify',
-    type = int,
+    type    = int,
     metavar = 'TIME',
     default = cfg.get('notify'),
-    help = 'email notification timeout in seconds',
-    dest = 'notify'
+    help    = 'email notification timeout in seconds',
+    dest    = 'notify'
   )
 
   return parser.parse_args()
