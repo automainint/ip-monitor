@@ -3,7 +3,7 @@
 import configparser
 import argparse
 import requests
-import time
+import os, shutil, time
 from smtplib import SMTP_SSL
 from email.message import EmailMessage
 
@@ -27,6 +27,15 @@ def parse_args(config_file):
   parser = argparse.ArgumentParser(
     prog        = 'ip-monitor',
     description = 'Public IP address monitoring'
+  )
+
+  parser.add_argument(
+    '--stop',
+    help    = 'stop background process',
+    dest    = 'stop',
+    action  = 'store_const',
+    const   = True,
+    default = False
   )
 
   parser.add_argument(
@@ -148,6 +157,10 @@ def send_notification(
 
 args = parse_args('ip-monitor.ini')
 
+if args.stop:
+  with open('.stop', 'w'): pass
+  raise SystemExit
+
 a_helper  = args.ip_helper
 a_smtp    = args.smtp_server
 a_port    = args.smtp_port;
@@ -176,7 +189,7 @@ with open('ip-monitor.log', 'a') as f:
   f.write('Delay:   ' + str(a_delay) + '\n')
   f.write('Notify:  ' + str(a_notify) + '\n\n')
 
-while True:
+while not os.path.exists('.stop'):
   if time_check <= 0:
     try:
       addr_new   = requests.get(a_helper).text
@@ -205,3 +218,5 @@ while True:
   time_check -= 1
   time_notify -= 1
   time.sleep(1)
+
+os.remove('.stop')
