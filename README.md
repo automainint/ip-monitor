@@ -1,1 +1,3 @@
-# Public IP monitoring bot
+# ip-monitor
+
+Public IP monitoring bot.

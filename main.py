@@ -129,11 +129,16 @@ def send_notification(
   subject: str,
   ip: str
 ):
+  global token
+
   msg = EmailMessage()
   msg.set_content(ip)
+
   msg['Subject'] = subject
   msg['From'] = sender
   msg['To'] = sendto
+
+  msg['Precedence'] = 'bulk'
 
   with SMTP_SSL(smtp_url, smtp_port) as smtp:
     smtp.login(user, password)
@@ -157,6 +162,18 @@ addr_new    = ''
 time_check  = 0
 time_notify = 0
 
+with open('ip-monitor.log', 'a') as f:
+  f.write('\n\nIP monitor started\n\n')
+  f.write('Helper:  ' + a_helper + '\n')
+  f.write('SMTP:    ' + a_smtp + '\n')
+  f.write('Port:    ' + str(a_port) + '\n')
+  f.write('User:    ' + a_user + '\n')
+  f.write('Sender:  ' + a_sender + '\n')
+  f.write('Send to: ' + a_sendto + '\n')
+  f.write('Subject: ' + a_subject + '\n')
+  f.write('Delay:   ' + str(a_delay) + '\n')
+  f.write('Notify:  ' + str(a_notify) + '\n\n')
+
 while True:
   if time_check <= 0:
     try:
@@ -170,11 +187,16 @@ while True:
           addr_new
         )
 
+        with open('ip-monitor.log', 'a') as f:
+          f.write('Notification sent.\n')
+
         address     = addr_new
         time_notify = a_notify
 
-    except Exception:
-      ...
+    except Exception as e:
+      with open('ip-monitor.log', 'a') as f:
+        f.write(str(e))
+        f.write('\n')
 
   time_check -= 1
   time_notify -= 1
