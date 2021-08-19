@@ -190,7 +190,9 @@ while True:
         )
 
         with open('ip-monitor.log', 'a') as f:
-          f.write('Notification sent.\n')
+          f.write(
+            'Notification sent. Current IP: ' +
+            addr_new + '\n')
 
         address     = addr_new
         time_notify = a_notify
