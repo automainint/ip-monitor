@@ -212,8 +212,7 @@ while not os.path.exists('.stop'):
 
     except Exception as e:
       with open('ip-monitor.log', 'a') as f:
-        f.write(str(e))
-        f.write('\n')
+        f.write(str(e) + '\n')
 
   time_check -= 1
   time_notify -= 1
