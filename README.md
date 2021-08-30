@@ -5,12 +5,13 @@ Public IP monitoring bot.
 - Install required packages:
   - requests;
   - smtplib.
+- Set up configuration in `ip-monitor.ini`.
 - Run the script.
 
 ```shell
 python -m pip install requests
 python -m pip install smtplib
-python main.py
+python main.py --help
 ```
 
 ##  Build the binary
